@@ -186,7 +186,7 @@ Safety rules: no roads or traffic, no heights, no water, no fire, nothing sharp,
             messages = [{"role": "system", "content": system_message}, {"role": "user", "content": prompt}]
             prompt_tokens = renderer.build_generation_prompt(messages)
             stop_sequences = renderer.get_stop_sequences()
-            sampling_params = SamplingParams(max_tokens=1000, temperature=0.5, stop=stop_sequences)
+            sampling_params = SamplingParams(max_tokens=2500, temperature=0.5, stop=stop_sequences)
             
             for attempt in range(retries + 1):
                 try:
