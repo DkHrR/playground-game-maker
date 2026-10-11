@@ -17,16 +17,18 @@ from tinker_cookbook import renderers, tokenizer_utils
 _tinker_service = None
 _tinker_sampling_client = None
 _tinker_renderer = None
+_tinker_lock = threading.Lock()
 
 def get_tinker_clients(model_name, api_key):
     global _tinker_service, _tinker_sampling_client, _tinker_renderer
-    if _tinker_sampling_client is None:
-        import os
-        os.environ["TINKER_API_KEY"] = api_key
-        _tinker_service = tinker.ServiceClient()
-        _tinker_sampling_client = _tinker_service.create_sampling_client(base_model=model_name)
-        _tokenizer = tokenizer_utils.get_tokenizer(model_name)
-        _tinker_renderer = renderers.get_renderer("qwen3_5", _tokenizer)
+    with _tinker_lock:
+        if _tinker_sampling_client is None:
+            import os
+            os.environ["TINKER_API_KEY"] = api_key
+            _tinker_service = tinker.ServiceClient()
+            _tinker_sampling_client = _tinker_service.create_sampling_client(base_model=model_name)
+            _tokenizer = tokenizer_utils.get_tokenizer(model_name)
+            _tinker_renderer = renderers.get_renderer("qwen3_5", _tokenizer)
     return _tinker_sampling_client, _tinker_renderer
 
 load_dotenv()

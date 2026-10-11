@@ -4,7 +4,7 @@ services:
     env: python
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app --workers 1 --threads 4 --timeout 180 --bind 0.0.0.0:$PORT
+    startCommand: gunicorn app:app --workers 1 --threads 2 --timeout 180 --bind 0.0.0.0:$PORT
     envVars:
       - key: PROVIDER
         value: tinker
@@ -16,6 +16,12 @@ services:
         value: "1"
       - key: PYTHON_VERSION
         value: 3.11.9
+      - key: MALLOC_ARENA_MAX
+        value: "2"
+      - key: TOKENIZERS_PARALLELISM
+        value: "false"
+      - key: OMP_NUM_THREADS
+        value: "1"
       - key: API_KEY
         sync: false
       - key: DEMO_TOKEN
