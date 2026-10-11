@@ -1,0 +1,9 @@
+.env
+*.sqlite
+*.bak
+*.backup
+node_modules/
+__pycache__/
+*.pyc
+screenshots/
+tailwindcss.exe

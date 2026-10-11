@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+
+
+
+<html class="light" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/>
+
+<style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#faf8ff;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/static/fonts.css"><style>
+
+    body {
+
+      min-height: max(884px, 100dvh);
+
+    }
+
+  </style>
+
+  </head><body class="max-w-[480px] mx-auto shadow-2xl relative bg-background text-on-surface font-body-md min-h-screen flex flex-col antialiased selection:bg-secondary-container"><header class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary leading-none truncate">Playground Game Maker</span><h1 class="font-headline-sm text-headline-sm text-on-surface truncate leading-tight">Stats</h1></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-28 bg-surface px-gutter"><div class="flex flex-col w-full gap-space-md">
+
+<!-- Top Banner / Summary Header -->
+
+<section class="bg-surface-container-lowest rounded-xl p-space-md shadow-md flex flex-col gap-space-xs relative overflow-hidden">
+
+<div class="absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-secondary-container/20 pointer-events-none flex items-center justify-center">
+
+<span class="material-symbols-outlined text-secondary-container/40 text-[72px]">yard</span>
+
+</div>
+
+<div class="flex items-center gap-space-xs">
+
+<span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-primary-container text-on-primary">
+
+<span class="material-symbols-outlined text-[18px]">nature_people</span>
+
+</span>
+
+
+
+</div>
+
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Playground Stats</h2>
+
+
+
+</section>
+
+<!-- Export CTA Bar -->
+
+<section class="w-full">
+
+<a href="/stats/csv" download class="w-full min-h-[54px] bg-primary-container active:scale-[0.98] text-on-primary rounded-xl px-space-md py-space-sm flex items-center justify-between shadow-md transition-transform duration-100 cursor-pointer">
+
+<div class="flex items-center gap-space-sm">
+
+<div class="w-9 h-9 rounded-lg bg-surface-container-lowest/20 flex items-center justify-center shrink-0">
+
+<span class="material-symbols-outlined text-on-primary text-[22px]">download</span>
+
+</div>
+
+<div class="flex flex-col items-start text-left">
+
+<span class="font-label-lg text-label-lg leading-tight text-on-primary">Download CSV</span>
+
+<span class="font-body-sm text-body-sm opacity-90 text-on-primary">Export play log (.csv)</span>
+
+</div>
+
+</div>
+
+<div class="flex items-center gap-1 bg-surface-container-lowest text-on-surface px-space-xs py-1 rounded-full shadow-sm">
+
+<span class="material-symbols-outlined text-[16px] text-primary-container">file_present</span>
+
+<span class="font-label-sm text-label-sm text-on-surface">{{ games_count }} games</span>
+
+</div>
+
+</a>
+
+<div class="hidden mt-2 p-space-xs px-space-sm rounded-lg bg-surface-container-high text-on-surface flex items-center gap-2" id="toastCsv">
+
+<span class="material-symbols-outlined text-primary-container text-[18px]">check_circle</span>
+
+<span class="font-body-sm text-body-sm">playground_stats_export.csv compiled &amp; ready!</span>
+
+</div>
+
+</section>
+
+<!-- 2x2 High Contrast Number Metric Cards -->
+
+<section class="grid grid-cols-2 gap-space-sm">
+
+<!-- Card 1: Games Made -->
+
+<div class="bg-surface-container-lowest rounded-xl p-space-sm flex flex-col justify-between shadow-sm relative overflow-hidden">
+
+<div class="flex items-center justify-between">
+
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Games Made</span>
+
+<span class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed shrink-0">
+
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+
+</span>
+
+</div>
+
+<div class="mt-space-sm flex flex-col">
+<span class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface font-extrabold leading-none">{{ games_count }}</span>
+</div>
+</div>
+
+<!-- Card 2: Screen Seconds -->
+
+<div class="bg-surface-container-lowest rounded-xl p-space-sm flex flex-col justify-between shadow-sm relative overflow-hidden">
+
+<div class="flex items-center justify-between">
+
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Screen time (total)</span>
+
+<span class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed shrink-0">
+
+<span class="material-symbols-outlined text-[18px]">timer</span>
+
+</span>
+
+</div>
+
+<div class="mt-space-sm flex flex-col">
+
+<div class="flex items-baseline gap-1"><span class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface font-extrabold leading-none">{{ total_screen }}</span>
+<span class="font-label-lg text-label-lg text-on-surface-variant font-bold">sec</span></div>
+
+
+
+</div>
+
+</div>
+
+<!-- Card 3: Minutes Outside -->
+
+<div class="bg-surface-container-lowest rounded-xl p-space-sm flex flex-col justify-between shadow-sm relative overflow-hidden">
+
+<div class="flex items-center justify-between">
+
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Outside time (self-reported)</span>
+
+<span class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container shrink-0">
+
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">wb_sunny</span>
+
+</span>
+
+</div>
+
+<div class="mt-space-sm flex flex-col">
+
+<div class="flex items-baseline gap-1"><span class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface font-extrabold leading-none">{{ total_outside }}</span>
+<span class="font-label-lg text-label-lg text-on-surface-variant font-bold">min</span></div>
+
+
+
+</div>
+
+</div>
+
+<!-- Card 4: Average Rating -->
+
+<div class="bg-surface-container-lowest rounded-xl p-space-sm flex flex-col justify-between shadow-sm relative overflow-hidden">
+
+<div class="flex items-center justify-between">
+
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Avg Fun Score</span>
+
+<span class="w-8 h-8 rounded-full bg-primary-fixed-dim flex items-center justify-center text-on-primary-fixed shrink-0">
+
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+
+</span>
+
+</div>
+
+<div class="mt-space-sm flex flex-col">
+
+<div class="flex items-baseline gap-1"><span class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface font-extrabold leading-none">{{ avg_rating | round(1) }}</span></div>
+
+<span class="font-body-sm text-body-sm text-on-surface-variant text-xs mt-1 leading-tight">across all sessions</span>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- Section 1: Real Games Created & Played -->
+<div class="flex items-center justify-between mt-8 mb-4">
+    <h3 class="font-headline-md text-headline-md text-on-surface">Real Games</h3>
+    <a href="/stats/csv" download class="text-label-md font-bold text-primary px-3 py-1.5 rounded-full hover:bg-surface-container-high transition-colors">Export CSV</a>
+</div>
+<div class="flex flex-col gap-space-sm mb-8">
+    {% if real_games %}
+        {% for g in real_games %}
+        <div class="relative overflow-hidden bg-surface-container-low rounded-[20px] p-gutter border border-outline-variant/30 flex flex-col gap-space-sm shadow-sm transition-all hover:bg-surface-container hover:shadow-md">
+            <div class="flex justify-between items-start gap-space-xs">
+                <div class="flex flex-col gap-0.5 min-w-0">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase opacity-80">{{ g['source'] }}</span>
+                    <h4 class="font-title-lg text-title-lg text-on-surface font-bold leading-tight line-clamp-2 pr-4">{{ g['name'] }}</h4>
+                </div>
+                <div class="flex flex-col items-end shrink-0 gap-1 bg-surface-container-highest px-2.5 py-1.5 rounded-lg border border-outline-variant/20 shadow-sm">
+                    <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant opacity-80">Average rating</span>
+                    <div class="flex items-center gap-0.5"><span class="material-symbols-outlined text-[16px] text-secondary fill-current">star</span><span class="font-title-md text-title-md font-extrabold text-on-surface leading-none">{{ g['rating'] }}</span></div>
+                </div>
+            </div>
+            <div class="flex items-center gap-space-xs flex-wrap"><span class="font-label-md text-label-md text-on-surface-variant bg-surface px-2 py-1 rounded-md border border-outline-variant/30 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">smartphone</span> {{ g['screen_seconds'] }}s screen</span><span class="font-label-md text-label-md text-on-surface-variant bg-surface px-2 py-1 rounded-md border border-outline-variant/30 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">park</span> {{ g['outside_minutes'] }}m out</span></div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-outline-variant/30 text-center">
+            <p class="text-body-md text-on-surface-variant">No real games played yet. Go make one!</p>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Section 2: Sample Games -->
+<div class="flex items-center justify-between mb-4">
+    <h3 class="font-headline-md text-headline-md text-on-surface">Sample Games</h3>
+</div>
+<div class="flex flex-col gap-space-sm mb-12">
+    {% if sample_games %}
+        {% for g in sample_games %}
+        <div class="relative overflow-hidden bg-surface-container-lowest rounded-[20px] p-gutter border border-outline-variant/50 flex flex-col gap-space-sm shadow-none opacity-90 transition-all hover:opacity-100 hover:bg-surface-container-low">
+            <div class="flex justify-between items-start gap-space-xs">
+                <div class="flex flex-col gap-0.5 min-w-0">
+                    <div class="flex items-center gap-1.5"><span class="font-label-sm text-label-sm bg-secondary-container/30 text-on-secondary-container px-1.5 py-0.2 rounded font-extrabold uppercase tracking-wide">Sample</span><span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase opacity-60">Mock Engine</span></div>
+                    <h4 class="font-title-lg text-title-lg text-on-surface font-bold leading-tight line-clamp-2 pr-4">{{ g['name'] }}</h4>
+                </div>
+            </div>
+            <div class="flex items-center gap-space-xs flex-wrap"><span class="font-label-md text-label-md text-on-surface-variant bg-surface-container-low px-2 py-1 rounded-md border border-outline-variant/20 flex items-center gap-1"><span class="material-symbols-outlined text-[14px] opacity-70">park</span> {{ g['outside_minutes'] }}m out</span><span class="font-label-md text-label-md text-on-surface-variant bg-surface-container-low px-2 py-1 rounded-md border border-outline-variant/20 flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-secondary">star</span> {{ g['rating'] }} rating</span></div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-outline-variant/30 text-center">
+            <p class="text-body-md text-on-surface-variant">No sample games available.</p>
+        </div>
+    {% endif %}
+</div>
+
+    </main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface/95 backdrop-blur-xl shadow-[0_-2px_12px_rgba(19,27,46,0.06)]" data-active-classes="text-primary-container font-headline-sm scale-105"><div class="flex justify-around items-center h-20 px-gutter"><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] min-h-[56px] text-on-surface-variant transition-transform active:translate-y-0.5" data-path="make-game" href="/"><span class="material-symbols-outlined text-[26px]">auto_awesome</span><span class="font-label-sm text-label-sm uppercase tracking-wide">Make Game</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] min-h-[56px] text-on-surface-variant transition-transform active:translate-y-0.5" data-path="current-game" href="/"><span class="material-symbols-outlined text-[26px]">play_circle</span><span class="font-label-sm text-label-sm uppercase tracking-wide">Current</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] min-h-[56px] transition-transform active:translate-y-0.5 text-primary-container font-headline-sm scale-105" data-path="stats" href="/stats"><span class="material-symbols-outlined text-[26px]">emoji_events</span><span class="font-label-sm text-label-sm uppercase tracking-wide">Stats</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] min-h-[56px] text-on-surface-variant transition-transform active:translate-y-0.5" data-path="log-play" href="/"><span class="material-symbols-outlined text-[26px]">stars</span><span class="font-label-sm text-label-sm uppercase tracking-wide">Log Play</span></a></div></nav></body></html>

@@ -1,0 +1,1830 @@
+﻿<!DOCTYPE html>
+<html class="light" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/>
+
+<style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#faf8ff;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/static/fonts.css"><style>
+
+    body {
+
+      min-height: max(884px, 100dvh);
+
+    }
+
+  </style>
+
+  </head><body class="max-w-[480px] mx-auto shadow-2xl relative bg-background text-on-surface font-body-md min-h-screen flex flex-col antialiased selection:bg-secondary-container"><div id="form-view">
+<header class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary leading-none truncate">Playground Game Maker</span><h1 class="font-headline-sm text-headline-sm text-on-surface truncate leading-tight">Make Game</h1></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-28 bg-surface px-gutter"><div class="flex flex-col w-full pb-8">
+
+<!-- Header Intro Banner -->
+
+<div class="flex flex-col gap-space-xs mt-2 mb-space-md">
+
+<div class="inline-flex items-center gap-space-xs self-start px-space-sm py-1 rounded-full bg-secondary-container text-on-secondary-container shadow-[2px_2px_0px_#131b2e]">
+
+<span class="material-symbols-outlined text-[16px]">wb_sunny</span>
+
+<span class="font-label-sm text-label-sm uppercase">Recess &amp; Backyard Mode</span>
+
+</div>
+
+<h2 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface tracking-tight leading-none mt-1">
+
+      Create an Outdoor Game
+
+    </h2>
+
+<p class="font-body-md text-body-md text-on-surface-variant font-medium">
+
+      Pick your setup and head outside in seconds.
+
+    </p>
+
+</div>
+
+<!-- Form Wrapper -->
+
+<form class="flex flex-col gap-space-md" id="game-maker-form" onsubmit="event.preventDefault();">
+
+<!-- 1. Number of Players Selector -->
+
+<div class="flex flex-col p-space-md rounded-xl bg-surface-container-lowest shadow-[3px_3px_0px_#131b2e]">
+
+<div class="flex items-center justify-between mb-space-sm">
+
+<label class="flex items-center gap-space-xs font-headline-sm text-headline-sm text-on-surface">
+
+<span class="w-7 h-7 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-md text-label-md">1</span>
+
+          Number of Players
+
+        </label>
+
+<span class="font-label-sm text-label-sm uppercase text-secondary font-extrabold tracking-wider bg-secondary-fixed px-2 py-0.5 rounded-full">Squad Size</span>
+
+</div>
+
+<!-- Tactile Stepper -->
+
+<div class="flex items-center justify-between bg-surface-container-low rounded-xl p-space-xs">
+
+<button aria-label="Decrease players" class="w-14 h-14 rounded-lg bg-surface-container-lowest text-on-surface flex items-center justify-center shadow-[3px_3px_0px_#131b2e] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all" id="btn-player-dec" type="button">
+
+<span class="material-symbols-outlined text-[28px] font-bold">remove</span>
+
+</button>
+
+<div class="flex flex-col items-center justify-center px-space-md">
+
+<span class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface font-extrabold leading-none" id="player-count-display">4</span>
+
+<span class="font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Players Ready</span>
+
+</div>
+
+<button aria-label="Increase players" class="w-14 h-14 rounded-lg bg-surface-container-lowest text-on-surface flex items-center justify-center shadow-[3px_3px_0px_#131b2e] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all" id="btn-player-inc" type="button">
+
+<span class="material-symbols-outlined text-[28px] font-bold">add</span>
+
+</button>
+
+</div>
+
+<!-- Quick Preset Pills -->
+
+<div class="grid grid-cols-4 gap-space-xs mt-space-sm">
+
+<button class="player-pill py-2.5 rounded-lg text-center font-label-md text-label-md bg-surface text-on-surface shadow-[2px_2px_0px_#131b2e] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all" onclick="setPlayers(2)" type="button">2</button>
+
+<button class="player-pill py-2.5 rounded-lg text-center font-label-md text-label-md bg-primary-container text-on-primary font-extrabold shadow-[2px_2px_0px_#131b2e] translate-x-[1px] translate-y-[1px] transition-all" onclick="setPlayers(4)" type="button">3–4</button>
+
+<button class="player-pill py-2.5 rounded-lg text-center font-label-md text-label-md bg-surface text-on-surface shadow-[2px_2px_0px_#131b2e] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all" onclick="setPlayers(6)" type="button">5–8</button>
+
+<button class="player-pill py-2.5 rounded-lg text-center font-label-md text-label-md bg-surface text-on-surface shadow-[2px_2px_0px_#131b2e] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all" onclick="setPlayers(10)" type="button">9+</button>
+
+</div>
+
+</div>
+
+<!-- 2. Age Range Picker -->
+
+<div class="flex flex-col p-space-md rounded-xl bg-surface-container-lowest shadow-[3px_3px_0px_#131b2e]">
+
+<div class="flex items-center justify-between mb-space-sm">
+
+<label class="flex items-center gap-space-xs font-headline-sm text-headline-sm text-on-surface">
+
+<span class="w-7 h-7 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-md text-label-md">2</span>
+
+          Age Bracket
+
+        </label>
+</div>
+
+<div class="grid grid-cols-2 gap-space-sm">
+
+<!-- Age Option 1 -->
+
+<button class="age-card p-space-sm rounded-xl text-left bg-surface-container-low text-on-surface shadow-[3px_3px_0px_#131b2e] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all flex flex-col justify-between min-h-[72px]" onclick="selectAge(this)" type="button">
+
+<span class="font-label-lg text-label-lg leading-tight">4–6 yrs</span>
+
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Little kids</span>
+
+</button>
+
+<!-- Age Option 2 (Active highlighted in warm amber/yellow) -->
+
+<button class="age-card p-space-sm rounded-xl text-left bg-secondary-container text-on-secondary-container shadow-[3px_3px_0px_#131b2e] font-extrabold translate-x-[1px] translate-y-[1px] transition-all flex flex-col justify-between min-h-[72px]" onclick="selectAge(this)" type="button">
+
+<div class="flex items-center justify-between">
+
+<span class="font-label-lg text-label-lg leading-tight">7–10 yrs</span>
+
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+
+</div>
+
+<span class="font-body-sm text-body-sm text-on-secondary-container font-bold">Grade school</span>
+
+</button>
+
+<!-- Age Option 3 -->
+
+<button class="age-card p-space-sm rounded-xl text-left bg-surface-container-low text-on-surface shadow-[3px_3px_0px_#131b2e] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all flex flex-col justify-between min-h-[72px]" onclick="selectAge(this)" type="button">
+
+<span class="font-label-lg text-label-lg leading-tight">11–14 yrs</span>
+
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Tweens</span>
+
+</button>
+
+<!-- Age Option 4 -->
+
+<button class="age-card p-space-sm rounded-xl text-left bg-surface-container-low text-on-surface shadow-[3px_3px_0px_#131b2e] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all flex flex-col justify-between min-h-[72px]" onclick="selectAge(this)" type="button">
+
+<span class="font-label-lg text-label-lg leading-tight">All ages</span>
+
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Family mix</span>
+
+</button>
+
+</div>
+
+</div>
+
+<!-- 3. Items You Have -->
+
+<div class="flex flex-col p-space-md rounded-xl bg-surface-container-lowest shadow-[3px_3px_0px_#131b2e]">
+
+<div class="flex items-center justify-between mb-space-xs">
+
+<label class="flex items-center gap-space-xs font-headline-sm text-headline-sm text-on-surface" for="gear-input">
+
+<span class="w-7 h-7 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-md text-label-md">3</span>
+
+          What gear do you have?
+
+        </label>
+
+<button class="font-label-sm text-label-sm uppercase text-secondary font-bold underline" onclick="clearGear()" type="button">Clear</button>
+
+</div>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm">
+
+        List anything nearby—or leave empty for a pure no-equipment tag game.
+
+      </p>
+
+<div class="relative">
+
+<textarea class="w-full p-space-sm rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md placeholder:text-outline focus:outline-none focus:bg-surface shadow-[inset_2px_2px_0px_rgba(19,27,46,0.1)] resize-none" id="gear-input" placeholder="e.g. 1 chalk, 2 tennis balls, a cardboard box, 4 cones" rows="2" placeholder="a ball, chalk, cones"></textarea>
+
+</div>
+
+<!-- Quick Add Badges -->
+
+<div class="mt-space-sm">
+
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant block mb-1">Quick Add:</span>
+
+<div class="flex flex-wrap gap-space-xs">
+
+<button class="px-space-sm py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md shadow-[2px_2px_0px_#131b2e] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none flex items-center gap-1" onclick="appendGear('chalk')" type="button">
+
+<span class="material-symbols-outlined text-[16px] text-primary">add</span> Chalk
+
+          </button>
+
+<button class="px-space-sm py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md shadow-[2px_2px_0px_#131b2e] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none flex items-center gap-1" onclick="appendGear('ball')" type="button">
+
+<span class="material-symbols-outlined text-[16px] text-primary">add</span> Ball
+
+          </button>
+
+<button class="px-space-sm py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md shadow-[2px_2px_0px_#131b2e] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none flex items-center gap-1" onclick="appendGear('sticks &amp; stones')" type="button">
+
+<span class="material-symbols-outlined text-[16px] text-primary">add</span> Sticks &amp; stones
+
+          </button>
+
+<button class="px-space-sm py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md shadow-[2px_2px_0px_#131b2e] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none flex items-center gap-1" onclick="appendGear('jump rope')" type="button">
+
+<span class="material-symbols-outlined text-[16px] text-primary">add</span> Jump rope
+
+          </button>
+
+<button class="px-space-sm py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md shadow-[2px_2px_0px_#131b2e] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none flex items-center gap-1" onclick="appendGear('cones')" type="button">
+
+<span class="material-symbols-outlined text-[16px] text-primary">add</span> Cones
+
+          </button>
+
+<button class="px-space-sm py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md shadow-[2px_2px_0px_#131b2e] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none flex items-center gap-1" onclick="appendGear('frisbee')" type="button">
+
+<span class="material-symbols-outlined text-[16px] text-primary">add</span> Frisbee
+
+          </button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- 4. Play Space Selector -->
+
+<div class="flex flex-col p-space-md rounded-xl bg-surface-container-lowest shadow-[3px_3px_0px_#131b2e]">
+
+<div class="flex items-center justify-between mb-space-sm">
+
+<label class="flex items-center gap-space-xs font-headline-sm text-headline-sm text-on-surface">
+
+<span class="w-7 h-7 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-md text-label-md">4</span>
+
+          Play Ground Zone
+
+        </label>
+</div>
+
+<div class="grid grid-cols-2 gap-space-sm">
+
+<!-- 1. Small yard (selected with green highlight & check) -->
+
+<button class="zone-card p-space-sm rounded-xl text-left bg-on-primary-container text-on-surface shadow-[3px_3px_0px_#131b2e] translate-x-[1px] translate-y-[1px] transition-all flex flex-col justify-between min-h-[104px]" onclick="selectZone(this)" type="button">
+
+<div class="flex items-start justify-between">
+
+<div class="w-10 h-10 rounded-lg bg-primary-container text-on-primary flex items-center justify-center shadow-[1px_1px_0px_#131b2e]">
+
+<span class="material-symbols-outlined text-[24px]">yard</span>
+
+</div>
+
+<span class="material-symbols-outlined text-primary text-[24px] font-bold">check_circle</span>
+
+</div>
+
+<div>
+
+<span class="font-label-lg text-label-lg block leading-tight">Small Yard</span>
+
+<span class="font-body-sm text-body-sm text-on-surface-variant">Lawn &amp; patio</span>
+
+</div>
+
+</button>
+
+<!-- 2. Street lane -->
+
+<button class="zone-card p-space-sm rounded-xl text-left bg-surface-container-low text-on-surface shadow-[3px_3px_0px_#131b2e] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all flex flex-col justify-between min-h-[104px]" onclick="selectZone(this)" type="button">
+
+<div class="flex items-start justify-between">
+
+<div class="w-10 h-10 rounded-lg bg-surface-container text-on-surface flex items-center justify-center shadow-[1px_1px_0px_#131b2e]">
+
+<span class="material-symbols-outlined text-[24px]">add_road</span>
+
+</div>
+
+<span class="material-symbols-outlined text-surface-dim text-[24px]">radio_button_unchecked</span>
+
+</div>
+
+<div>
+
+<span class="font-label-lg text-label-lg block leading-tight">Street / Cul-de-sac</span>
+
+<span class="font-body-sm text-body-sm text-on-surface-variant">Paved driveway</span>
+
+</div>
+
+</button>
+
+<!-- 3. Park field -->
+
+<button class="zone-card p-space-sm rounded-xl text-left bg-surface-container-low text-on-surface shadow-[3px_3px_0px_#131b2e] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all flex flex-col justify-between min-h-[104px]" onclick="selectZone(this)" type="button">
+
+<div class="flex items-start justify-between">
+
+<div class="w-10 h-10 rounded-lg bg-surface-container text-on-surface flex items-center justify-center shadow-[1px_1px_0px_#131b2e]">
+
+<span class="material-symbols-outlined text-[24px]">forest</span>
+
+</div>
+
+<span class="material-symbols-outlined text-surface-dim text-[24px]">radio_button_unchecked</span>
+
+</div>
+
+<div>
+
+<span class="font-label-lg text-label-lg block leading-tight">Park Field</span>
+
+<span class="font-body-sm text-body-sm text-on-surface-variant">Wide open grass</span>
+
+</div>
+
+</button>
+
+<!-- 4. Other / Playground -->
+
+<button class="zone-card p-space-sm rounded-xl text-left bg-surface-container-low text-on-surface shadow-[3px_3px_0px_#131b2e] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all flex flex-col justify-between min-h-[104px]" onclick="selectZone(this)" type="button">
+
+<div class="flex items-start justify-between">
+
+<div class="w-10 h-10 rounded-lg bg-surface-container text-on-surface flex items-center justify-center shadow-[1px_1px_0px_#131b2e]">
+
+<span class="material-symbols-outlined text-[24px]">sports_handball</span>
+
+</div>
+
+<span class="material-symbols-outlined text-surface-dim text-[24px]">radio_button_unchecked</span>
+
+</div>
+
+<div>
+
+<span class="font-label-lg text-label-lg block leading-tight">Court / Jungle Gym</span>
+
+<span class="font-body-sm text-body-sm text-on-surface-variant">Play structure</span>
+
+</div>
+
+</button>
+
+</div>
+
+</div>
+
+<!-- 5. Time Duration Slider & Quick Taps -->
+
+<div class="flex flex-col p-space-md rounded-xl bg-surface-container-lowest shadow-[3px_3px_0px_#131b2e]">
+
+<div class="flex items-center justify-between mb-space-xs">
+
+<label class="flex items-center gap-space-xs font-headline-sm text-headline-sm text-on-surface" for="time-slider">
+
+<span class="w-7 h-7 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-md text-label-md">5</span>
+
+          Game Duration
+
+        </label>
+
+<div class="px-space-sm py-1 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-headline-sm text-headline-sm flex items-center gap-1 shadow-[2px_2px_0px_#131b2e]">
+
+<span class="material-symbols-outlined text-[18px]">timer</span>
+
+<span id="duration-display">30</span><span class="font-label-sm text-label-sm">m</span>
+
+</div>
+
+</div>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm">
+
+        Target play time: <strong class="text-on-surface" id="duration-subtitle">30 minutes</strong>
+
+</p>
+
+<!-- Slider Control -->
+
+<div class="px-1 py-2">
+
+<input class="w-full h-3 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-primary-container" id="time-slider" max="60" min="10" oninput="updateTimeSlider(this.value)" step="5" type="range" value="30"/>
+
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant mt-1 font-bold">
+
+<span>10 min</span>
+
+<span>35 min</span>
+
+<span>60 min</span>
+
+</div>
+
+</div>
+
+<!-- Quick Buttons -->
+
+<div class="grid grid-cols-4 gap-space-xs mt-space-sm">
+
+<button class="time-btn py-2 rounded-lg text-center font-label-md text-label-md bg-surface text-on-surface shadow-[2px_2px_0px_#131b2e] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none" onclick="setTimePreset(15)" type="button">15 min</button>
+
+<button class="time-btn py-2 rounded-lg text-center font-label-md text-label-md bg-secondary-container text-on-secondary-container font-extrabold shadow-[2px_2px_0px_#131b2e] translate-x-[1px] translate-y-[1px]" onclick="setTimePreset(30)" type="button">30 min</button>
+
+<button class="time-btn py-2 rounded-lg text-center font-label-md text-label-md bg-surface text-on-surface shadow-[2px_2px_0px_#131b2e] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none" onclick="setTimePreset(45)" type="button">45 min</button>
+
+<button class="time-btn py-2 rounded-lg text-center font-label-md text-label-md bg-surface text-on-surface shadow-[2px_2px_0px_#131b2e] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none" onclick="setTimePreset(60)" type="button">60 min</button>
+
+</div>
+
+</div>
+
+<!-- Giant Primary CTA Button -->
+
+<div class="mt-space-sm mb-4">
+
+<button class="w-full min-h-[68px] py-4 px-space-md rounded-2xl bg-primary-container text-on-primary flex items-center justify-center gap-space-sm shadow-[4px_6px_0px_#131b2e] active:translate-x-[3px] active:translate-y-[4px] active:shadow-[1px_1px_0px_#131b2e] transition-all cursor-pointer" id="make-game-btn" onclick="triggerCreateAnimation()" type="button">
+
+<span class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center shadow-[2px_2px_0px_#131b2e] shrink-0">
+
+<span class="material-symbols-outlined text-[24px]">auto_awesome</span>
+
+</span>
+
+<div class="flex flex-col items-start leading-tight">
+
+<span class="font-headline-lg-mobile text-headline-lg-mobile tracking-wide uppercase font-extrabold text-on-primary">
+
+            Make A Game
+
+          </span>
+
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-primary-container opacity-90">
+
+            Makes your game in seconds
+
+          </span>
+
+</div>
+
+<span class="material-symbols-outlined text-[28px] text-on-primary ml-auto">arrow_forward</span>
+
+</button>
+
+</div>
+
+<!-- Outdoor Tips Card -->
+
+<div class="flex items-center gap-space-sm p-space-sm rounded-xl bg-surface-container text-on-surface shadow-[2px_2px_0px_#131b2e]">
+
+<div class="w-9 h-9 rounded-full bg-secondary text-on-secondary flex items-center justify-center shrink-0">
+
+<span class="material-symbols-outlined text-[20px]">sports_score</span>
+
+</div>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant font-medium">
+
+         active. Audio  &amp; oversized  will be loaded automatically!
+
+      </p>
+
+</div>
+
+</form>
+
+</div>
+
+<script>
+
+  // Player Stepper Interactive Logic
+
+  let playerCount = 4;
+
+  const countDisplay = document.getElementById('player-count-display');
+
+  const btnDec = document.getElementById('btn-player-dec');
+
+  const btnInc = document.getElementById('btn-player-inc');
+  function updatePlayerCount(val) {
+
+    playerCount = Math.max(1, Math.min(24, val));
+
+    if (countDisplay) {
+
+      countDisplay.textContent = playerCount;
+
+    }
+
+  }
+  if (btnDec) {
+
+    btnDec.addEventListener('click', () => updatePlayerCount(playerCount - 1));
+
+  }
+
+  if (btnInc) {
+
+    btnInc.addEventListener('click', () => updatePlayerCount(playerCount + 1));
+
+  }
+  function setPlayers(num) {
+
+    updatePlayerCount(num);
+
+    document.querySelectorAll('.player-pill').forEach(btn => {
+
+      btn.className = 'player-pill py-2.5 rounded-lg text-center font-label-md text-label-md bg-surface text-on-surface shadow-[2px_2px_0px_#131b2e] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all';
+
+    });
+
+    if (event && event.currentTarget) {
+
+      event.currentTarget.className = 'player-pill py-2.5 rounded-lg text-center font-label-md text-label-md bg-primary-container text-on-primary font-extrabold shadow-[2px_2px_0px_#131b2e] translate-x-[1px] translate-y-[1px] transition-all';
+
+    }
+
+  }
+  // Age Picker Selection
+
+  function selectAge(el) {
+
+    document.querySelectorAll('.age-card').forEach(card => {
+
+      card.className = 'age-card p-space-sm rounded-xl text-left bg-surface-container-low text-on-surface shadow-[3px_3px_0px_#131b2e] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all flex flex-col justify-between min-h-[72px]';
+
+      const checkIcons = card.querySelectorAll('.material-symbols-outlined');
+      checkIcons.forEach(icon => { if(icon.innerText === 'check_circle') icon.remove(); });
+
+    });
+    el.className = 'age-card p-space-sm rounded-xl text-left bg-secondary-container text-on-secondary-container shadow-[3px_3px_0px_#131b2e] font-extrabold translate-x-[1px] translate-y-[1px] transition-all flex flex-col justify-between min-h-[72px]';
+
+    const topRow = el.querySelector('div') || el;
+
+    let hasCheck = false; el.querySelectorAll('.material-symbols-outlined').forEach(i => { if(i.innerText === 'check_circle') hasCheck = true; }); if (!hasCheck) {
+
+      const icon = document.createElement('span');
+
+      icon.className = 'material-symbols-outlined text-[20px] ml-auto';
+
+      icon.innerText = 'check_circle';
+
+      el.children[0].appendChild(icon);
+
+    }
+
+  }
+  // Gear Append helper
+
+  function appendGear(item) {
+
+    const textarea = document.getElementById('gear-input');
+
+    if (!textarea) return;
+
+    const currentVal = textarea.value.trim();
+
+    if (currentVal.length === 0) {
+
+      textarea.value = item;
+
+    } else if (!currentVal.toLowerCase().includes(item.toLowerCase())) {
+
+      textarea.value = currentVal + ', ' + item;
+
+    }
+
+    textarea.focus();
+
+  }
+  function clearGear() {
+
+    const textarea = document.getElementById('gear-input');
+
+    if (textarea) textarea.value = '';
+
+  }
+  // Zone Selector
+
+  function selectZone(el) {
+
+    document.querySelectorAll('.zone-card').forEach(card => {
+
+      card.className = 'zone-card p-space-sm rounded-xl text-left bg-surface-container-low text-on-surface shadow-[3px_3px_0px_#131b2e] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all flex flex-col justify-between min-h-[104px]';
+
+      const icons = card.querySelectorAll('div > .material-symbols-outlined'); let iconWrap = icons.length > 1 ? icons[icons.length - 1] : null;
+
+      if (iconWrap) {
+
+        iconWrap.innerText = 'radio_button_unchecked';
+
+        iconWrap.className = 'material-symbols-outlined text-surface-dim text-[24px]';
+
+      }
+
+    });
+    el.className = 'zone-card p-space-sm rounded-xl text-left bg-on-primary-container text-on-surface shadow-[3px_3px_0px_#131b2e] translate-x-[1px] translate-y-[1px] transition-all flex flex-col justify-between min-h-[104px]';
+
+    const icons2 = el.querySelectorAll('div > .material-symbols-outlined'); let iconIndicator = icons2.length > 1 ? icons2[icons2.length - 1] : null;
+
+    if (iconIndicator) {
+
+      iconIndicator.innerText = 'check_circle';
+
+      iconIndicator.className = 'material-symbols-outlined text-primary text-[24px] font-bold';
+
+    }
+
+  }
+  // Time Duration Handling
+
+  function updateTimeSlider(val) {
+
+    const disp = document.getElementById('duration-display');
+
+    const sub = document.getElementById('duration-subtitle');
+
+    const slider = document.getElementById('time-slider');
+
+    if (disp) disp.textContent = val;
+
+    if (sub) sub.textContent = val + ' minutes';
+
+    if (slider) slider.value = val;
+    document.querySelectorAll('.time-btn').forEach(btn => {
+
+      btn.className = 'time-btn py-2 rounded-lg text-center font-label-md text-label-md bg-surface text-on-surface shadow-[2px_2px_0px_#131b2e] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none';
+
+    });
+
+  }
+  function setTimePreset(minutes) {
+
+    updateTimeSlider(minutes);
+
+    if (event && event.currentTarget) {
+
+      event.currentTarget.className = 'time-btn py-2 rounded-lg text-center font-label-md text-label-md bg-secondary-container text-on-secondary-container font-extrabold shadow-[2px_2px_0px_#131b2e] translate-x-[1px] translate-y-[1px]';
+
+    }
+
+  }
+  // CTA Click Animation State
+
+  function triggerCreateAnimation() {
+
+    const btn = document.getElementById('make-game-btn');
+
+    if (!btn) return;
+
+    btn.classList.add('scale-95');
+
+    setTimeout(() => {
+
+      btn.classList.remove('scale-95');
+
+      // Gentle feedback indicator
+
+      const icon = btn.querySelector('.material-symbols-outlined');
+
+      if (icon) icon.innerText = 'celebration';
+
+      setTimeout(() => {
+
+        if (icon) icon.innerText = 'auto_awesome';
+
+      }, 1500);
+
+    }, 180);
+
+  }
+
+</script></main><nav class="fixed bottom-0 inset-x-0 sm:w-[480px] sm:left-1/2 sm:-translate-x-1/2 z-50 pb-safe bg-surface/95 backdrop-blur-xl shadow-[0_-2px_12px_rgba(19,27,46,0.06)]" data-active-classes="text-primary-container font-headline-sm scale-105"><div class="flex justify-around items-center h-20 px-gutter"><a aria-current="page" class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] min-h-[56px] transition-transform active:translate-y-0.5 text-primary-container font-headline-sm scale-105" data-path="make-game" href="#"><span class="material-symbols-outlined text-[26px]">auto_awesome</span><span class="font-label-sm text-label-sm uppercase tracking-wide">Make Game</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] min-h-[56px] text-on-surface-variant transition-transform active:translate-y-0.5" data-path="current-game" href="#"><span class="material-symbols-outlined text-[26px]">play_circle</span><span class="font-label-sm text-label-sm uppercase tracking-wide">Current</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] min-h-[56px] text-on-surface-variant transition-transform active:translate-y-0.5" data-path="stats" href="#"><span class="material-symbols-outlined text-[26px]">emoji_events</span><span class="font-label-sm text-label-sm uppercase tracking-wide">Stats</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] min-h-[56px] text-on-surface-variant transition-transform active:translate-y-0.5" data-path="log-play" href="#"><span class="material-symbols-outlined text-[26px]">stars</span><span class="font-label-sm text-label-sm uppercase tracking-wide">Log Play</span></a></div></nav>
+</div>
+<div id="game-view" class="hidden">
+<header class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary leading-none truncate">Playground Game Maker</span><h1 class="font-headline-sm text-headline-sm text-on-surface truncate leading-tight">Current Game</h1></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-28 bg-surface px-gutter"><div class="flex flex-col w-full pb-8 space-y-space-md">
+
+<!-- ple Disclaimer Banner -->
+
+<div id="sample-banner" class="hidden w-full bg-secondary-fixed rounded-xl p-3 flex items-center justify-between shadow-sm">
+
+<div class="flex items-center gap-space-xs min-w-0">
+
+<span class="material-symbols-outlined text-on-secondary-fixed text-[20px] shrink-0">flag</span>
+
+<span class="font-label-md text-label-md text-on-secondary-fixed font-bold truncate"><span>SAMPLE GAME - not made by AI</span></span>
+
+</div>
+
+
+
+</div>
+
+<!-- Model Info Pill & Game Header -->
+
+<div class="flex flex-col space-y-space-xs">
+
+<div class="flex items-center gap-1.5 self-start bg-surface-container-high px-2.5 py-1 rounded-full">
+
+<span class="material-symbols-outlined text-primary text-[16px]">neurology</span>
+<span id="model-name-banner" class="font-label-sm text-label-sm text-on-surface-variant font-semibold"></span>
+</div>
+
+<div class="pt-1">
+
+<h2 id="game-name" class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold tracking-tight">
+
+        
+
+      </h2>
+
+</div>
+
+</div>
+
+<!-- Quick Summary Badges Grid -->
+
+<div class="grid grid-cols-2 gap-2">
+
+<div class="bg-surface-container-lowest rounded-xl p-3 flex items-center gap-2.5 shadow-sm">
+
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center shrink-0">
+
+<span class="material-symbols-outlined text-primary text-[22px]">groups</span>
+
+</div>
+
+<div class="flex flex-col min-w-0">
+
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Players</span>
+<span id="game-players" class="font-body-md text-body-md text-on-surface font-bold truncate"></span>
+
+<span class="font-body-md text-body-md text-on-surface font-bold truncate"></span>
+
+</div>
+
+</div>
+
+<div class="bg-surface-container-lowest rounded-xl p-3 flex items-center gap-2.5 shadow-sm">
+
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center shrink-0">
+
+<span class="material-symbols-outlined text-primary text-[22px]">face</span>
+
+</div>
+
+<div class="flex flex-col min-w-0">
+
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Age Group</span>
+<span id="game-age" class="font-body-md text-body-md text-on-surface font-bold truncate"></span>
+
+<span class="font-body-md text-body-md text-on-surface font-bold truncate"></span>
+
+</div>
+
+</div>
+
+<div class="bg-surface-container-lowest rounded-xl p-3 flex items-center gap-2.5 shadow-sm">
+
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center shrink-0">
+
+<span class="material-symbols-outlined text-primary text-[22px]">yard</span>
+
+</div>
+
+<div class="flex flex-col min-w-0">
+
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Zone</span>
+<span id="game-space" class="font-body-md text-body-md text-on-surface font-bold truncate"></span>
+
+<span class="font-body-md text-body-md text-on-surface font-bold truncate"></span>
+
+</div>
+
+</div>
+
+<div class="bg-surface-container-lowest rounded-xl p-3 flex items-center gap-2.5 shadow-sm">
+
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center shrink-0">
+
+<span class="material-symbols-outlined text-primary text-[22px]">timer</span>
+
+</div>
+
+<div class="flex flex-col min-w-0">
+
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Duration</span>
+
+<span id="game-duration" class="font-body-md text-body-md text-on-surface font-bold truncate"></span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Setup Card -->
+
+<div class="bg-surface-container-low rounded-2xl p-space-md shadow-sm space-y-3">
+
+<div class="flex items-center justify-between pb-1">
+
+<div class="flex items-center gap-2">
+
+<span class="material-symbols-outlined text-primary text-[24px]">construction</span>
+
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Field Setup</h3>
+
+</div>
+
+
+
+</div>
+
+<div id="game-setup-container" class="space-y-2.5">
+</div>
+
+</div>
+
+<!-- Rules Card -->
+
+<div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm space-y-space-sm">
+
+<div class="flex items-center gap-2 pb-1">
+
+<span class="material-symbols-outlined text-primary text-[24px]">menu_book</span>
+
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Game Rules</h3>
+
+</div>
+
+<div id="rules-list-container" class="flex flex-col space-y-2">
+</div>
+
+<!-- How to Win Box -->
+
+<div class="bg-secondary-fixed rounded-2xl p-space-md shadow-sm space-y-1.5">
+
+<div class="flex items-center gap-2">
+
+<span class="material-symbols-outlined text-secondary text-[26px]">emoji_events</span>
+
+<h3 class="font-headline-sm text-headline-sm text-on-secondary-fixed font-bold">Victory Condition</h3>
+
+</div>
+
+<p id="game-how-to-win" class="font-body-md text-body-md text-on-secondary-fixed leading-snug">
+
+      </p>
+
+</div>
+
+<!-- Safety Note Box -->
+
+<div class="bg-error-container rounded-2xl p-space-md shadow-sm space-y-1.5">
+
+<div class="flex items-center gap-2">
+
+<span class="material-symbols-outlined text-on-error-container text-[24px]">health_and_safety</span>
+
+<h3 class="font-headline-sm text-headline-sm text-on-error-container font-bold">Safety Guideline</h3>
+
+</div>
+
+<p id="game-safety" class="font-body-md text-body-md text-on-error-container leading-snug">
+
+      </p>
+
+</div>
+
+<!-- Start Playing Action Button -->
+
+<div class="pt-2">
+
+<button id="start-btn" class="w-full h-16 min-h-[60px] bg-primary-container text-on-primary-container rounded-2xl flex items-center justify-center gap-3 shadow-md active:scale-95 transition-transform duration-100 cursor-pointer" type="button">
+
+<span class="material-symbols-outlined text-on-primary-container text-[30px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+
+<span class="font-headline-md text-headline-md uppercase tracking-wide font-extrabold text-on-primary-container">Start Playing</span>
+
+</button>
+
+</div>
+
+</div></main><nav class="fixed bottom-0 inset-x-0 sm:w-[480px] sm:left-1/2 sm:-translate-x-1/2 z-50 pb-safe bg-surface/95 backdrop-blur-xl shadow-[0_-2px_12px_rgba(19,27,46,0.06)]" data-active-classes="text-primary-container font-headline-sm scale-105"><div class="flex justify-around items-center h-20 px-gutter"><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] min-h-[56px] text-on-surface-variant transition-transform active:translate-y-0.5" data-path="make-game" href="#"><span class="material-symbols-outlined text-[26px]">auto_awesome</span><span class="font-label-sm text-label-sm uppercase tracking-wide">Make Game</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] min-h-[56px] transition-transform active:translate-y-0.5 text-primary-container font-headline-sm scale-105" data-path="current-game" href="#"><span class="material-symbols-outlined text-[26px]">play_circle</span><span class="font-label-sm text-label-sm uppercase tracking-wide">Current</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] min-h-[56px] text-on-surface-variant transition-transform active:translate-y-0.5" data-path="stats" href="#"><span class="material-symbols-outlined text-[26px]">emoji_events</span><span class="font-label-sm text-label-sm uppercase tracking-wide">Stats</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] min-h-[56px] text-on-surface-variant transition-transform active:translate-y-0.5" data-path="log-play" href="#"><span class="material-symbols-outlined text-[26px]">stars</span><span class="font-label-sm text-label-sm uppercase tracking-wide">Log Play</span></a></div></nav>
+</div>
+<div id="lock-view" class="hidden">
+<header class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><button aria-label="Go back" class="min-w-[48px] min-h-[48px] flex items-center justify-center rounded-xl bg-surface-container text-on-surface active:scale-95 transition-transform shrink-0" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary leading-none truncate">Playground Game Maker</span><h1 class="font-headline-sm text-headline-sm text-on-surface truncate leading-tight">Active Game Session</h1></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface px-gutter"><div class="flex flex-col w-full pb-8">
+
+<div class="w-full flex flex-col items-center gap-space-md pt-2">
+
+<div class="inline-flex items-center gap-space-xs px-4 py-2 rounded-full bg-secondary-fixed text-on-secondary-fixed shadow-md">
+
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">lock</span>
+
+<span class="font-label-sm text-label-sm tracking-wider uppercase">Phone Locked for Play</span>
+
+</div>
+
+<div class="w-full text-center px-2">
+
+<span class="font-label-md text-label-md text-primary uppercase tracking-widest block mb-1">Active Game Session</span>
+
+<h2 id="lock-game-name" class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold flex items-center justify-center gap-2"></h2>
+
+</div>
+
+<div class="w-full bg-secondary-fixed text-on-secondary-fixed rounded-xl p-6 shadow-xl relative overflow-hidden flex flex-col items-center text-center">
+
+
+
+
+
+<div class="flex items-center justify-center gap-4 mb-3 text-on-secondary-fixed">
+
+<div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center shadow-md">
+
+<span class="material-symbols-outlined text-[28px] text-secondary" style="font-variation-settings: 'FILL' 1;">wb_sunny</span>
+
+</div>
+
+<div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center shadow-md">
+
+<span class="material-symbols-outlined text-[28px] text-primary" style="font-variation-settings: 'FILL' 1;">sprint</span>
+
+</div>
+
+<div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center shadow-md">
+
+<span class="material-symbols-outlined text-[28px] text-on-surface" style="font-variation-settings: 'FILL' 1;">sports_football</span>
+
+</div>
+
+</div>
+
+<span class="font-label-lg text-label-lg uppercase tracking-wider text-secondary mb-1">Go Play Outside!</span>
+
+<div class="my-2 bg-surface rounded-xl px-5 py-4 w-full shadow-md flex flex-col items-center justify-center">
+
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider mb-1">Session Countdown</span>
+
+<span class="font-headline-xl text-headline-xl text-on-surface tracking-tight font-extrabold select-none" id="countdown-timer">
+
+          00:00
+
+        </span>
+
+<span id="lock-total" class="font-body-sm text-body-sm text-on-surface-variant font-bold"></span>
+
+</div>
+
+<div class="w-full mt-4 flex flex-col gap-2">
+
+<div class="flex justify-between items-center text-on-secondary-fixed px-1 font-label-sm text-label-sm">
+
+<span id="lock-elapsed">Elapsed: 00:00</span>
+
+<span id="lock-percent">100% Left</span>
+
+</div>
+
+<div class="w-full h-5 bg-surface rounded-full overflow-hidden p-1 shadow-inner flex items-center">
+
+<div class="h-full bg-primary rounded-full transition-all duration-500 ease-out" id="play-progress-bar" style="width: 21%;"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="w-full bg-surface-container rounded-xl p-5 shadow-sm text-center flex flex-col items-center gap-3">
+
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed shadow-sm">
+
+<span class="material-symbols-outlined text-[22px]">park</span>
+
+</div>
+
+<p class="font-body-lg text-body-lg text-on-surface font-bold leading-snug max-w-xs">
+
+        Put this phone in your pocket or hand it to an adult !
+
+      </p>
+
+<p id="lock-game-safety" class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"></p>
+
+</div>
+
+<div class="w-full grid grid-cols-2 gap-space-sm">
+
+<div class="bg-surface-container-high rounded-xl p-4 flex items-center gap-3 shadow-sm">
+
+<div class="w-10 h-10 rounded-full bg-surface flex items-center justify-center text-primary shrink-0 shadow-sm">
+
+<span class="material-symbols-outlined text-[24px]">flag</span>
+
+</div>
+
+<div class="flex flex-col min-w-0">
+
+<span class="font-label-sm text-label-sm text-outline uppercase">Active Zone</span>
+
+<span id="lock-game-space" class="font-headline-sm text-headline-sm text-on-surface truncate"></span>
+
+</div>
+
+</div>
+
+<div class="bg-surface-container-high rounded-xl p-4 flex items-center gap-3 shadow-sm">
+
+<div class="w-10 h-10 rounded-full bg-surface flex items-center justify-center text-secondary shrink-0 shadow-sm">
+
+<span class="material-symbols-outlined text-[24px]">groups</span>
+
+</div>
+
+<div class="flex flex-col min-w-0">
+
+<span class="font-label-sm text-label-sm text-outline uppercase">Players</span>
+
+<span id="lock-game-players" class="font-headline-sm text-headline-sm text-on-surface truncate"></span>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="w-full flex flex-col items-center mt-2 pt-2">
+
+<div class="relative w-full max-w-xs">
+
+<button class="w-full min-h-[52px] py-3 px-5 rounded-xl bg-surface-container-lowest text-on-surface shadow-md active:scale-95 transition-all flex items-center justify-center gap-2 select-none touch-none" id="unlock-btn" type="button">
+
+<span class="material-symbols-outlined text-[20px] text-outline">lock_open</span>
+
+<span class="font-label-md text-label-md font-bold">Unlock Early</span>
+
+</button>
+
+<div class="absolute bottom-0 left-0 h-1 bg-primary rounded-b-xl w-0 transition-all" id="hold-progress"></div>
+
+</div>
+
+<span class="font-label-sm text-label-sm text-outline mt-2 text-center">
+
+        Tap to end active play session early
+
+      </span>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+</div>
+<div id="feedback-view" class="hidden">
+<header class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary leading-none truncate">Playground Game Maker</span><h1 class="font-headline-sm text-headline-sm text-on-surface truncate leading-tight">Log Play</h1></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-28 bg-surface px-gutter"><div class="flex flex-col w-full pb-8">
+
+<!-- Celebration Banner & Sun Burst Graphic -->
+
+<div class="flex items-center gap-space-sm mb-space-sm">
+
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center shrink-0 shadow-md">
+
+<span class="material-symbols-outlined text-on-secondary-container text-[28px]" style="font-variation-settings: 'FILL' 1;">wb_sunny</span>
+
+</div>
+
+<div class="flex flex-col min-w-0">
+
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface leading-tight">Great Game! â˜€ï¸</h2>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">Log your outdoor session before heading inside.</p>
+
+</div>
+
+</div>
+
+<!-- Session MVP / Quick Achievement Tag -->
+
+<div class="bg-surface-container rounded-xl p-space-sm mb-space-md flex items-center justify-between shadow-sm">
+
+<div class="flex items-center gap-space-xs">
+
+<span class="material-symbols-outlined text-primary text-[22px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+</div>
+
+<!-- Minutes Played Card -->
+
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-md mb-space-md flex flex-col gap-space-sm">
+
+<div class="flex items-center justify-between">
+
+<label class="font-label-lg text-label-lg text-on-surface flex items-center gap-space-xs" for="time-stepper">
+
+<span class="material-symbols-outlined text-secondary text-[22px]">timer</span>
+
+        Minutes Actually Played Outside
+
+      </label>
+
+<span class="font-label-sm text-label-sm uppercase text-secondary font-bold">Midday Run</span>
+
+</div>
+
+<!-- Oversized Tactile Stepper -->
+
+<div class="flex items-center justify-between bg-surface-container-low rounded-xl p-space-xs" id="time-stepper">
+
+<button aria-label="Decrease time by 5 minutes" class="w-14 h-14 rounded-lg bg-surface-container-lowest text-on-surface flex items-center justify-center shadow-sm active:translate-y-0.5 transition-transform" id="btn-minus-5" type="button">
+
+<span class="material-symbols-outlined text-[32px] font-bold">remove</span>
+
+</button>
+
+<div class="flex flex-col items-center">
+
+<span class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface leading-none font-extrabold tracking-tight" id="display-minutes">0</span>
+
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant tracking-wider mt-1">Minutes</span>
+
+</div>
+
+<button aria-label="Increase time by 5 minutes" class="w-14 h-14 rounded-lg bg-surface-container-lowest text-on-surface flex items-center justify-center shadow-sm active:translate-y-0.5 transition-transform" id="btn-plus-5" type="button">
+
+<span class="material-symbols-outlined text-[32px] font-bold">add</span>
+
+</button>
+
+</div>
+
+<!-- Quick Preset Chips -->
+
+<div aria-label="Quick minute presets" class="flex items-center gap-space-xs overflow-x-auto py-1" role="group">
+
+<button class="preset-chip px-3 py-2 rounded-full bg-surface-container text-on-surface font-label-md text-label-md shrink-0 shadow-sm active:scale-95 transition-all" data-val="15" type="button">15 min</button>
+
+<button class="preset-chip px-3 py-2 rounded-full bg-surface-container text-on-surface font-label-md text-label-md shrink-0 shadow-sm active:scale-95 transition-all" data-val="25" type="button">25 min</button>
+
+<button class="preset-chip px-3 py-2 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md shrink-0 shadow-sm active:scale-95 transition-all" data-val="28" type="button">28 min</button>
+
+<button class="preset-chip px-3 py-2 rounded-full bg-surface-container text-on-surface font-label-md text-label-md shrink-0 shadow-sm active:scale-95 transition-all" data-val="30" type="button">30 min</button>
+
+<button class="preset-chip px-3 py-2 rounded-full bg-surface-container text-on-surface font-label-md text-label-md shrink-0 shadow-sm active:scale-95 transition-all" data-val="45" type="button">45 min</button>
+
+<button class="preset-chip px-3 py-2 rounded-full bg-surface-container text-on-surface font-label-md text-label-md shrink-0 shadow-sm active:scale-95 transition-all" data-val="60" type="button">60 min</button>
+
+</div>
+
+</div>
+
+<!-- How Was It? Star Rating Card -->
+
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-md mb-space-md flex flex-col gap-space-sm">
+
+<div class="flex items-center justify-between">
+
+<span class="font-label-lg text-label-lg text-on-surface flex items-center gap-space-xs">
+
+<span class="material-symbols-outlined text-secondary-container text-[24px]" style="font-variation-settings: 'FILL' 1;">mood</span>
+
+        How was it?
+
+      </span>
+
+<span class="font-label-sm text-label-sm uppercase bg-secondary-fixed text-on-secondary-fixed px-space-xs py-1 rounded-full" id="star-score-text">5 / 5 Stars</span>
+
+</div>
+
+<!-- Chunky High-Contrast Star Buttons -->
+
+<div aria-label="Game excitement rating" class="flex items-center justify-between gap-space-xs py-1" role="radiogroup">
+
+<button aria-label="Rate 1 star" class="star-btn w-12 h-12 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center shadow-md active:translate-y-0.5 transition-transform" data-star="1" type="button">
+
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">star</span>
+
+</button>
+
+<button aria-label="Rate 2 stars" class="star-btn w-12 h-12 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center shadow-md active:translate-y-0.5 transition-transform" data-star="2" type="button">
+
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">star</span>
+
+</button>
+
+<button aria-label="Rate 3 stars" class="star-btn w-12 h-12 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center shadow-md active:translate-y-0.5 transition-transform" data-star="3" type="button">
+
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">star</span>
+
+</button>
+
+<button aria-label="Rate 4 stars" class="star-btn w-12 h-12 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center shadow-md active:translate-y-0.5 transition-transform" data-star="4" type="button">
+
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">star</span>
+
+</button>
+
+<button aria-label="Rate 5 stars" class="star-btn w-12 h-12 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center shadow-md active:translate-y-0.5 transition-transform" data-star="5" type="button">
+
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">star</span>
+
+</button>
+
+</div>
+
+<!-- Rating Reaction Label -->
+
+<div class="bg-surface-container rounded-lg p-space-xs text-center">
+
+<p class="font-body-md text-body-md text-on-surface font-bold" id="rating-feedback">Epic! Everyone loved it! ðŸ”¥</p>
+
+</div>
+
+</div>
+
+<!-- Players Present Quick Tag Badges -->
+
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-md mb-space-md flex flex-col gap-space-sm">
+
+<div class="flex items-center justify-between">
+
+<span class="font-label-lg text-label-lg text-on-surface flex items-center gap-space-xs">
+
+<span class="material-symbols-outlined text-primary text-[22px]">groups</span>
+
+        Players Present (4)
+
+      </span>
+
+<button class="font-label-sm text-label-sm text-primary flex items-center gap-1" id="btn-add-player" type="button">
+
+<span class="material-symbols-outlined text-[18px]">add_circle</span> Add
+
+      </button>
+
+</div>
+
+<div class="flex flex-wrap gap-space-xs" id="player-chips-container">
+
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-md text-label-md shadow-sm">
+
+<span class="material-symbols-outlined text-[16px]">check</span> 
+
+      </span>
+
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-md text-label-md shadow-sm">
+
+<span class="material-symbols-outlined text-[16px]">check</span> 
+
+      </span>
+
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-md text-label-md shadow-sm">
+
+<span class="material-symbols-outlined text-[16px]">check</span> 
+
+      </span>
+
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-md text-label-md shadow-sm">
+
+<span class="material-symbols-outlined text-[16px]">check</span> 
+
+      </span>
+
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md shadow-sm active:scale-95 transition-all" type="button">
+
+<span class="material-symbols-outlined text-[16px]">person_add</span> + Guest
+
+      </button>
+
+</div>
+
+</div>
+
+<!-- One-Line Note Input Card -->
+
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-md mb-space-lg flex flex-col gap-space-xs">
+
+<label class="font-label-lg text-label-lg text-on-surface flex items-center gap-space-xs" for="rule-note-input">
+
+<span class="material-symbols-outlined text-secondary text-[22px]">edit_note</span>
+
+      Quick memory or rule tweak:
+
+    </label>
+
+<div class="relative">
+
+<textarea class="w-full bg-surface-container-low text-on-surface font-body-md text-body-md rounded-xl p-3 focus:outline-none focus:bg-surface-container-lowest shadow-sm placeholder:text-on-surface-variant/60" id="rule-note-input" placeholder="e.g. Added a second ball because we had 8 kids" rows="2"></textarea>
+
+</div>
+
+<div class="flex items-center justify-between text-on-surface-variant px-1">
+
+<span class="font-label-sm text-label-sm">Saved for next game</span>
+
+<span class="font-label-sm text-label-sm">52 chars</span>
+
+</div>
+
+</div>
+
+<!-- Primary and Secondary Actions -->
+
+<div class="flex flex-col gap-space-sm">
+
+<!-- Big Giant Primary Action Button -->
+
+<button class="w-full min-h-[56px] rounded-xl bg-primary-container text-on-primary-container font-headline-sm text-headline-sm flex items-center justify-center gap-space-xs shadow-md active:translate-y-1 transition-all" id="btn-save-log" type="button">
+
+<span class="material-symbols-outlined text-[28px] font-bold">check_circle</span>
+
+<span>Save Game to Log</span>
+
+</button>
+
+<!-- Secondary Alternatives -->
+
+<div class="grid grid-cols-2 gap-space-sm">
+
+<button class="min-h-[52px] rounded-xl bg-surface-container-high text-on-surface font-label-lg text-label-lg flex items-center justify-center gap-1 shadow-sm active:translate-y-0.5 transition-transform" type="button">
+
+<span class="material-symbols-outlined text-[20px]">replay</span>
+
+<span>Play Again</span>
+
+</button>
+
+<button class="min-h-[52px] rounded-xl bg-surface-container text-on-surface font-label-lg text-label-lg flex items-center justify-center gap-1 shadow-sm active:translate-y-0.5 transition-transform" type="button">
+
+<span class="material-symbols-outlined text-[20px]">tune</span>
+
+<span>Make New</span>
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Micro Toast Confirmation Feedback (hidden by default) -->
+
+<div class="fixed bottom-24 left-4 right-4 bg-inverse-surface text-inverse-on-surface p-4 rounded-xl shadow-xl flex items-center gap-3 transition-all duration-300 transform translate-y-32 opacity-0 pointer-events-none z-50" id="save-toast">
+
+<span class="material-symbols-outlined text-primary-fixed text-[26px]">celebration</span>
+
+<div class="flex flex-col min-w-0 flex-1">
+
+<span class="font-label-lg text-label-lg">Game Logged!</span>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+  (function() {
+
+    let minutes = 28;
+
+    const minDisplay = document.getElementById('display-minutes');
+
+    const minusBtn = document.getElementById('btn-minus-5');
+
+    const plusBtn = document.getElementById('btn-plus-5');
+
+    const chips = document.querySelectorAll('.preset-chip');
+    function updateMinutes(val) {
+
+      minutes = Math.max(5, Math.min(180, val));
+
+      if (minDisplay) minDisplay.textContent = minutes;
+
+      chips.forEach(chip => {
+
+        const chipVal = parseInt(chip.getAttribute('data-val'), 10);
+
+        if (chipVal === minutes) {
+
+          chip.classList.remove('bg-surface-container', 'text-on-surface');
+
+          chip.classList.add('bg-primary-container', 'text-on-primary-container');
+
+        } else {
+
+          chip.classList.add('bg-surface-container', 'text-on-surface');
+
+          chip.classList.remove('bg-primary-container', 'text-on-primary-container');
+
+        }
+
+      });
+
+    }
+    if (minusBtn) {
+
+      minusBtn.addEventListener('click', () => updateMinutes(minutes - 5));
+
+    }
+
+    if (plusBtn) {
+
+      plusBtn.addEventListener('click', () => updateMinutes(minutes + 5));
+
+    }
+    chips.forEach(chip => {
+
+      chip.addEventListener('click', () => {
+
+        const val = parseInt(chip.getAttribute('data-val'), 10);
+
+        updateMinutes(val);
+
+      });
+
+    });
+    // Star Rating Logic
+
+    const starBtns = document.querySelectorAll('.star-btn');
+
+    const feedbackText = document.getElementById('rating-feedback');
+
+    const scoreText = document.getElementById('star-score-text');
+
+    const feedbackPhrases = [
+
+      '',
+
+                    'Needs rule tweaks next time 💭',
+
+                    'Good warm-up round! 👍',
+
+                    'Solid fun, had a blast! ⚡',
+
+                    'Awesome game! Loved the pace! 🚀',
+
+                    'Epic! Everyone loved it! 🔥'
+
+    ];
+    starBtns.forEach(btn => {
+
+      btn.addEventListener('click', () => {
+
+        const starCount = parseInt(btn.getAttribute('data-star'), 10);
+
+        if (scoreText) scoreText.textContent = `${starCount} / 5 Stars`;
+
+        if (feedbackText) feedbackText.textContent = feedbackPhrases[starCount];
+        starBtns.forEach(sb => {
+
+          const sVal = parseInt(sb.getAttribute('data-star'), 10);
+
+          const icon = sb.querySelector('.material-symbols-outlined');
+
+          if (sVal <= starCount) {
+
+            sb.classList.remove('bg-surface-container', 'text-on-surface-variant');
+
+            sb.classList.add('bg-secondary-container', 'text-on-secondary-container');
+
+            if (icon) icon.style.fontVariationSettings = "'FILL' 1";
+
+          } else {
+
+            sb.classList.remove('bg-secondary-container', 'text-on-secondary-container');
+
+            sb.classList.add('bg-surface-container', 'text-on-surface-variant');
+
+            if (icon) icon.style.fontVariationSettings = "'FILL' 0";
+
+          }
+
+        });
+
+      });
+
+    });
+    // Save Log Confirmation Micro-interaction
+
+    const saveBtn = document.getElementById('btn-save-log');
+
+    const toast = document.getElementById('save-toast');
+    if (saveBtn && toast) {
+
+      saveBtn.addEventListener('click', () => {
+
+        toast.classList.remove('translate-y-32', 'opacity-0');
+
+        toast.classList.add('translate-y-0', 'opacity-100');
+
+        saveBtn.disabled = true;
+
+        saveBtn.classList.add('opacity-80');
+
+        setTimeout(() => {
+
+          toast.classList.add('translate-y-32', 'opacity-0');
+
+          toast.classList.remove('translate-y-0', 'opacity-100');
+
+          saveBtn.disabled = false;
+
+          saveBtn.classList.remove('opacity-80');
+
+        }, 3000);
+
+      });
+
+    }
+
+  })();
+
+</script></main><nav class="fixed bottom-0 inset-x-0 sm:w-[480px] sm:left-1/2 sm:-translate-x-1/2 z-50 pb-safe bg-surface/95 backdrop-blur-xl shadow-[0_-2px_12px_rgba(19,27,46,0.06)]" data-active-classes="text-primary-container font-headline-sm scale-105"><div class="flex justify-around items-center h-20 px-gutter"><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] min-h-[56px] text-on-surface-variant transition-transform active:translate-y-0.5" data-path="make-game" href="#"><span class="material-symbols-outlined text-[26px]">auto_awesome</span><span class="font-label-sm text-label-sm uppercase tracking-wide">Make Game</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] min-h-[56px] text-on-surface-variant transition-transform active:translate-y-0.5" data-path="current-game" href="#"><span class="material-symbols-outlined text-[26px]">play_circle</span><span class="font-label-sm text-label-sm uppercase tracking-wide">Current</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] min-h-[56px] text-on-surface-variant transition-transform active:translate-y-0.5" data-path="stats" href="#"><span class="material-symbols-outlined text-[26px]">emoji_events</span><span class="font-label-sm text-label-sm uppercase tracking-wide">Stats</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] min-h-[56px] transition-transform active:translate-y-0.5 text-primary-container font-headline-sm scale-105" data-path="log-play" href="#"><span class="material-symbols-outlined text-[26px]">stars</span><span class="font-label-sm text-label-sm uppercase tracking-wide">Log Play</span></a></div></nav>
+</div>
+<script>
+    let screenTimeSeconds = 0;
+    let screenTimeInterval = null;
+    let isLocked = false;
+    let currentGame = null;
+    let currentSource = null;
+    let lockTimerId = null;
+    let lockSecondsRemaining = 0;
+
+    function startScreenTimer() {
+        if(!screenTimeInterval) {
+            screenTimeInterval = setInterval(() => {
+                if(!isLocked) screenTimeSeconds++;
+            }, 1000);
+        }
+    }
+    startScreenTimer();
+
+    const formView = document.getElementById("form-view");
+    const gameView = document.getElementById("game-view");
+    const lockView = document.getElementById("lock-view");
+    const feedbackView = document.getElementById("feedback-view");
+
+    function showView(view) {
+        if (lockTimerId) { clearInterval(lockTimerId); lockTimerId = null; }
+        formView.classList.add("hidden");
+        gameView.classList.add("hidden");
+        lockView.classList.add("hidden");
+        feedbackView.classList.add("hidden");
+        view.classList.remove("hidden");
+        isLocked = (view === lockView);
+        window.scrollTo(0,0);
+    }
+    
+    // Bottom navigation
+          document.querySelectorAll("[data-path]").forEach(nav => {
+          nav.addEventListener("click", (e) => {
+              e.preventDefault();
+              const p = nav.getAttribute("data-path");
+              if(p === "make-game") showView(formView);
+              if(p === "current-game") { if (currentGame) showView(gameView); else alert("No game yet"); }
+              if(p === "stats") window.location.href = "/stats";
+              if(p === "log-play") { if (currentGame) showView(feedbackView); else alert("No game yet"); }
+          });
+      });
+
+    // Make game
+    const makeBtn = document.getElementById("make-game-btn");
+    if(makeBtn) {
+        makeBtn.addEventListener("click", async () => {
+            const btn = document.getElementById("make-game-btn");
+            const origText = btn.innerHTML;
+            let seconds = 0;
+            btn.innerHTML = `<span class="font-headline-lg-mobile text-on-primary">Making your game... 0s</span>`;
+            btn.disabled = true;
+            
+            const timerInterval = setInterval(() => {
+                seconds++;
+                btn.innerHTML = `<span class="font-headline-lg-mobile text-on-primary">Making your game... ${seconds}s</span>`;
+            }, 1000);
+            
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 150000);
+
+            const payload = {
+                players: document.getElementById("player-count-display").textContent.trim(),
+                age: document.querySelector(".age-card.bg-secondary-container") ? document.querySelector(".age-card.bg-secondary-container").querySelector("span").textContent : "Any",
+                items: document.getElementById("gear-input").value.trim(),
+                space: document.querySelector(".zone-card.bg-on-primary-container") ? document.querySelector(".zone-card.bg-on-primary-container").querySelector("span.font-label-lg").textContent : "Any",
+                minutes: document.getElementById("duration-display").textContent.trim()
+            };
+
+            try {
+                const res = await fetch("/api/generate", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                    signal: controller.signal
+                });
+                
+                let data = null;
+                try { data = await res.json(); } catch(err) {}
+
+                if (data && data.error) {
+                    throw new Error(data.error);
+                } else if (!res.ok) {
+                    throw new Error("Status code: " + res.status);
+                } else if (!data) {
+                    throw new Error("Invalid response from server.");
+                }
+
+                if (data.success) {
+                    currentGame = data.game;
+                    currentSource = data.source;
+                    
+                    document.getElementById("game-name").textContent = currentGame.name;
+                    document.getElementById("game-players").textContent = payload.players + " Players";
+                    document.getElementById("game-age").textContent = payload.age;
+                    document.getElementById("game-space").textContent = payload.space;
+                    document.getElementById("game-duration").textContent = currentGame.minutes + " Mins";
+                    
+                    document.getElementById("game-setup-container").innerHTML = `<div class="bg-surface-container-lowest p-3 rounded-xl text-body-md">${currentGame.setup}</div>`;
+                    
+                    const rulesList = document.getElementById("rules-list-container");
+                    rulesList.innerHTML = "";
+                    currentGame.rules.forEach((r, i) => {
+                        rulesList.innerHTML += `<div class="flex items-start gap-3 p-2.5 rounded-xl bg-surface-container-low"><span class="font-headline-md text-primary font-black w-6 text-center">${i+1}</span><p class="text-body-md leading-snug self-center">${r}</p></div>`;
+                    });
+                    
+                    document.getElementById("game-how-to-win").textContent = currentGame.how_to_win;
+                    document.getElementById("game-safety").textContent = currentGame.safety_note;
+                    
+                    const modelBanner = document.getElementById("model-name-banner");
+                    const sampleBanner = document.getElementById("sample-banner");
+                    if (currentSource === "mock") {
+                        sampleBanner.classList.remove("hidden");
+                        modelBanner.textContent = "Mock Engine";
+                    } else {
+                        sampleBanner.classList.add("hidden");
+                        modelBanner.textContent = currentSource;
+                    }
+                    
+                    showView(gameView);
+                }
+            } catch (e) {
+                if (e.name === "AbortError") {
+                    alert("Took too long, try again");
+                } else {
+                    alert(e instanceof TypeError ? "Server not reachable." : e.message);
+                }
+            } finally {
+                clearInterval(timerInterval);
+                clearTimeout(timeoutId);
+                btn.innerHTML = origText;
+                btn.disabled = false;
+            }
+        });
+    }
+
+    
+    let lockEndTime = null;
+    let lockDurationSeconds = 0;
+
+    const startBtn = document.getElementById("start-btn");
+    if (startBtn) {
+        startBtn.addEventListener("click", () => {
+            startFreshLock();
+        });
+    }
+
+    function startFreshLock() {
+        if (!currentGame) return;
+        if (lockTimerId) { clearInterval(lockTimerId); lockTimerId = null; }
+        lockDurationSeconds = currentGame.minutes * 60;
+        lockEndTime = Date.now() + lockDurationSeconds * 1000;
+        document.getElementById("lock-total").textContent = currentGame.minutes + " min total playground run";
+        document.getElementById("lock-game-name").textContent = currentGame.name;
+        document.getElementById("lock-game-space").textContent = document.getElementById("game-space").textContent;
+        document.getElementById("lock-game-players").textContent = document.getElementById("game-players").textContent;
+        document.getElementById("lock-game-safety").textContent = currentGame.safety_note;
+        showView(lockView);
+        
+        if (lockTimerId) { clearInterval(lockTimerId); lockTimerId = null; }
+        updateLockDisplay(); // initial tick
+        lockTimerId = setInterval(updateLockDisplay, 1000);
+    }
+
+    // Visibility change handling for accurate countdown
+    document.addEventListener("visibilitychange", () => {
+        if (!document.hidden && isLocked) {
+            updateLockDisplay();
+        }
+    });
+
+    function updateLockDisplay() {
+        if (!lockEndTime) return;
+        let remaining = Math.max(0, Math.floor((lockEndTime - Date.now()) / 1000));
+        
+        const m = Math.floor(remaining / 60).toString().padStart(2, "0");
+        const s = (remaining % 60).toString().padStart(2, "0");
+        document.getElementById("countdown-timer").textContent = `${m}:${s}`;
+        
+        const pct = Math.max(0, 100 - (remaining / lockDurationSeconds) * 100);
+        document.getElementById("play-progress-bar").style.width = pct + "%";
+        
+        let elapsed = lockDurationSeconds - remaining;
+        const em = Math.floor(elapsed / 60).toString().padStart(2, "0");
+        const es = (elapsed % 60).toString().padStart(2, "0");
+        const elapsedEl = document.getElementById("lock-elapsed");
+        if(elapsedEl) elapsedEl.textContent = `Elapsed: ${em}:${es}`;
+        
+        const pctEl = document.getElementById("lock-percent");
+        if(pctEl) pctEl.textContent = `${Math.round((remaining / lockDurationSeconds) * 100)}% Left`;
+        
+        if (remaining <= 0) {
+            finishLock();
+        }
+    }
+
+    // Override the unlock button logic
+    const unlockBtn = document.getElementById("unlock-btn");
+    if(unlockBtn) {
+        const newBtn = unlockBtn.cloneNode(true);
+        unlockBtn.parentNode.replaceChild(newBtn, unlockBtn);
+        newBtn.addEventListener("click", () => {
+            if (confirm("Are you sure you want to unlock early? Try to stay outside a bit longer!")) {
+            if (lockTimerId) { clearInterval(lockTimerId); lockTimerId = null; }
+                finishLock();
+            }
+        });
+    }
+
+    function finishLock() {
+        if (lockTimerId) { clearInterval(lockTimerId); lockTimerId = null; }
+        let remaining = Math.max(0, Math.floor((lockEndTime - Date.now()) / 1000));
+        let minsPlayed = Math.round((lockDurationSeconds - remaining) / 60);
+        if (minsPlayed < 1) minsPlayed = 1;
+        document.getElementById("display-minutes").textContent = minsPlayed;
+        showView(feedbackView);
+    }
+    
+    // Play Again / Make New buttons
+    document.querySelectorAll("button").forEach(b => {
+        if(b.textContent.includes("Play Again")) b.onclick = () => {
+            if (currentGame) startFreshLock();
+            else showView(formView);
+        };
+        if(b.textContent.includes("Make New")) b.onclick = () => showView(formView);
+    });
+
+
+    const saveBtn = document.getElementById("btn-save-log");
+    if(saveBtn) {
+        const newSaveBtn = saveBtn.cloneNode(true);
+        saveBtn.parentNode.replaceChild(newSaveBtn, saveBtn);
+        newSaveBtn.addEventListener("click", async () => {
+            newSaveBtn.disabled = true;
+            
+            const rBtn = document.querySelector(".star-btn.bg-secondary-container");
+            const rating = rBtn ? parseInt(rBtn.getAttribute("data-star")) : 5;
+
+            const payload = {
+                name: currentGame.name,
+                screen_seconds: screenTimeSeconds,
+                outside_minutes: document.getElementById("display-minutes").textContent,
+                rating: rating,
+                notes: document.getElementById("rule-note-input").value.trim(),
+                source: currentSource
+            };
+
+            try {
+                await fetch("/api/save_stats", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                screenTimeSeconds = 0;
+                // Toast logic
+                const toast = document.getElementById("save-toast");
+                if (toast) {
+                    toast.classList.remove("translate-y-32", "opacity-0");
+                    toast.classList.add("translate-y-0", "opacity-100");
+                }
+                setTimeout(() => window.location.href = "/stats", 2000);
+            } catch (err) {
+                console.error("Failed to save", err);
+                newSaveBtn.disabled = false;
+            }
+        });
+    }
+    
+    // Remove "" tip
+    const tipDiv = document.querySelector(".bg-surface-container > p.text-body-sm");
+    if(tipDiv && tipDiv.textContent.includes("")) {
+        tipDiv.parentElement.remove();
+    }
+</script>
+
+</body></html>
