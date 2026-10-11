@@ -6,6 +6,9 @@ import socket
 from flask import Flask, render_template, request, jsonify, Response
 from dotenv import load_dotenv
 import requests
+import collections
+import time
+import threading
 
 import tinker
 from tinker.types import SamplingParams
@@ -29,6 +32,49 @@ def get_tinker_clients(model_name, api_key):
 load_dotenv()
 app = Flask(__name__)
 DB_FILE = 'data.sqlite'
+
+# Background Tinker warmup for Gunicorn and direct start
+def _warmup_tinker():
+    if os.getenv("PROVIDER", "").lower() == "tinker" and os.getenv("MOCK_MODEL", "0") != "1":
+        try:
+            get_tinker_clients(os.getenv("MODEL", ""), os.getenv("API_KEY", ""))
+            print("Tinker client warmed up in background.")
+        except Exception as e:
+            print("Failed to warm up Tinker client:", e)
+
+if os.getenv("PROVIDER", "").lower() == "tinker":
+    threading.Thread(target=_warmup_tinker, daemon=True).start()
+
+# In-memory spend limits for demo mode (5 games/IP/hour, 100/day total)
+_ip_game_times = collections.defaultdict(list)
+_global_game_times = []
+
+def check_demo_spend_limits(client_ip):
+    now = time.time()
+    one_day_ago = now - 86400
+    one_hour_ago = now - 3600
+    global _global_game_times
+    _global_game_times = [t for t in _global_game_times if t > one_day_ago]
+    if len(_global_game_times) >= 100:
+        return False
+    times = [t for t in _ip_game_times[client_ip] if t > one_hour_ago]
+    _ip_game_times[client_ip] = times
+    if len(times) >= 5:
+        return False
+    return True
+
+def record_demo_spend(client_ip):
+    now = time.time()
+    _ip_game_times[client_ip].append(now)
+    _global_game_times.append(now)
+
+def is_token_authorized(req):
+    demo_token = os.getenv("DEMO_TOKEN")
+    if not demo_token:
+        return True
+    token_param = req.args.get("token")
+    token_cookie = req.cookies.get("demo_token")
+    return token_param == demo_token or token_cookie == demo_token
 
 def get_db():
     conn = sqlite3.connect(DB_FILE)
@@ -199,10 +245,25 @@ Safety rules: no roads or traffic, no heights, no water, no fire, nothing sharp,
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    demo_token = os.getenv("DEMO_TOKEN")
+    if demo_token and not is_token_authorized(request):
+        return Response("This demo needs a link with a token", status=403, mimetype="text/plain; charset=utf-8")
+    resp = Response(render_template('index.html'), mimetype="text/html; charset=utf-8")
+    if demo_token and request.args.get("token") == demo_token:
+        resp.set_cookie("demo_token", demo_token, max_age=86400*30, httponly=True, samesite="Lax")
+    return resp
 
 @app.route('/api/generate', methods=['POST'])
 def generate():
+    demo_token = os.getenv("DEMO_TOKEN")
+    if demo_token and not is_token_authorized(request):
+        return jsonify({"success": False, "error": "This demo needs a link with a token"}), 403
+
+    if os.getenv("DEMO_MODE", "0") == "1":
+        client_ip = request.headers.get('X-Forwarded-For', request.remote_addr).split(',')[0].strip()
+        if not check_demo_spend_limits(client_ip):
+            return jsonify({"success": False, "error": "Demo limit reached, try later"}), 429
+
     data = request.json
     from shared_lists import UNSAFE_ITEMS, UNSAFE_OUTPUT, COMMON_ITEMS
     import re
@@ -282,6 +343,10 @@ def generate():
         source = final_source
 
 
+        if os.getenv("DEMO_MODE", "0") == "1":
+            client_ip = request.headers.get('X-Forwarded-For', request.remote_addr).split(',')[0].strip()
+            record_demo_spend(client_ip)
+
         print(f"generate done in {int(time.time() - start_time)}s")
         return jsonify({"success": True, "game": game, "source": source})
     except Exception as e:
@@ -290,6 +355,8 @@ def generate():
 
 @app.route('/api/save_stats', methods=['POST'])
 def save_stats():
+    if os.getenv("DEMO_MODE", "0") == "1":
+        return jsonify({"success": True, "message": "Demo mode: stats not saved"})
     data = request.json
     conn = get_db()
     c = conn.cursor()
@@ -303,6 +370,8 @@ def save_stats():
 
 @app.route('/stats')
 def stats():
+    if os.getenv("DEMO_MODE", "0") == "1":
+        return Response("Stats are only kept in the local version", mimetype="text/plain; charset=utf-8")
     conn = get_db()
     games = conn.execute("SELECT * FROM games ORDER BY id DESC").fetchall()
     conn.close()
@@ -321,6 +390,8 @@ def stats():
 
 @app.route('/stats/csv')
 def stats_csv():
+    if os.getenv("DEMO_MODE", "0") == "1":
+        return Response("Stats are only kept in the local version", mimetype="text/plain; charset=utf-8")
     conn = get_db()
     games = conn.execute("SELECT * FROM games ORDER BY id ASC").fetchall()
     conn.close()
@@ -346,14 +417,6 @@ def get_ip():
     return IP
 
 if __name__ == '__main__':
-    # Warm up Tinker client on startup
-    if os.getenv("PROVIDER", "").lower() == "tinker":
-        try:
-            get_tinker_clients(os.getenv("MODEL", ""), os.getenv("API_KEY", ""))
-            print("Tinker client warmed up.")
-        except Exception as e:
-            print("Failed to warm up Tinker client:", e)
-
     init_db()
     ip = get_ip()
     print("=========================================")

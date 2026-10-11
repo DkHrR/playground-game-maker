@@ -8,7 +8,7 @@ Built with **Antigravity** and **Google Stitch**.
 
 1. **Install Dependencies**:
    ```bash
-   pip install -r requirements.txt # or: pip install flask python-dotenv requests tinker
+   pip install -r requirements.txt
    ```
 
 2. **Configure Environment**:
@@ -22,8 +22,9 @@ Built with **Antigravity** and **Google Stitch**.
    - `PROVIDER`
    - `MODEL`
    - `API_KEY`
-   - `BASE_URL`
    - `MOCK_MODEL`
+   - `DEMO_MODE`
+   - `DEMO_TOKEN`
 
 4. **Start the Server**:
    ```bash
@@ -31,6 +32,15 @@ Built with **Antigravity** and **Google Stitch**.
    ```
    Open the displayed URL (e.g. `http://127.0.0.1:5000` or local Wi-Fi IP on mobile) in your browser.
 
+## Deploy
+
+The application can be deployed as a public demo on Render using the included `render.yaml` (free web service tier with Gunicorn):
+
+- **Build Command**: `pip install -r requirements.txt`
+- **Start Command**: `gunicorn app:app --workers 1 --threads 4 --timeout 180 --bind 0.0.0.0:$PORT`
+- **Demo Mode & Limits**: When `DEMO_MODE=1` is set, games are rate-limited to **5 games per IP per hour** and **100 games per day in total** to protect credits. Stats saving to database is disabled online.
+- **Token Gate**: Setting `DEMO_TOKEN` requires visitors to access the demo via `?token=YOUR_TOKEN` (remembered via cookie after the first visit).
+
 ## Safety & Local Privacy
 
-This application is designed for trusted local networks with no external telemetry, logins, or trackers. All game histories and play logs are stored locally in SQLite.
+In local mode, all game histories and play logs are stored locally in SQLite with no external telemetry, logins, or trackers.
